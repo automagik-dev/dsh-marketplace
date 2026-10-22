@@ -1,0 +1,13 @@
+{
+  "products": [
+    {
+      "id": "omni",
+      "repository": "https://github.com/automagik-dev/omni",
+      "index": "marketplace/automagik.json",
+      "release": {
+        "version": "2.261019.10",
+        "commit": "b06aa17242743a7dff5aaed70d36c4fd9f16b371"
+      }
+    }
+  ]
+}

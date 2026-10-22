@@ -1,0 +1,15 @@
+{
+  "name": "dsh-marketplace",
+  "private": true,
+  "description": "The Automagik plugin market for DeepSeek Harness",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "check": "bun scripts/market.ts check",
+    "follow": "bun scripts/market.ts follow"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-plugin-market-index": "0.2.1-rc.2"
+  }
+}
