@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { parseMarketIndex } from '@deepseek-ai/dsh-plugin-market-index';
-import { INDEX_PATH, INDEX_URL, type Index, followIndex } from './market';
+import { INDEX_PATH, INDEX_URL, type Index, PRODUCTS_PATH, type Product, followIndex, sourceRepository } from './market';
 
 const REPO = 'https://github.com/automagik-dev/omni';
 const git = (commit: string, path = 'apps/omni-ui-dsh') => ({ type: 'git', url: REPO, commit, path });
@@ -51,6 +51,42 @@ describe('following a product release', () => {
     before.plugins[0].versions.unshift(own('2.2', 'e'.repeat(40)));
     expect(followIndex(before, template(), release, unchanged).plugins[0].versions[0].source).toEqual(git('e'.repeat(40)));
     expect(() => followIndex(before, template(), release, () => true)).toThrow('must bump the version');
+  });
+});
+
+describe('products side by side', () => {
+  const AUTOMAGIK = 'https://github.com/automagik-dev/automagik';
+  const theirs = (version: string, commit: string) => ({ version, publishTimestamp: 1, source: { type: 'git', url: AUTOMAGIK, commit, path: 'apps/bots-dsh' } });
+
+  it("leaves another product's plugin to that product, even when this one's index lists it", () => {
+    const before = listed();
+    before.plugins.push({ name: '@automagik/bots-dsh', versions: [theirs('3.2', 'f'.repeat(40)), theirs('3.1', 'e'.repeat(40))] });
+    const omni = template();
+    omni.plugins.push({ name: '@automagik/bots-dsh', title: { en: 'From Omni' }, versions: [theirs('3.0', 'a'.repeat(40))] });
+    const next = followIndex(before, omni, release, unchanged, [AUTOMAGIK]);
+    const team = next.plugins.find((plugin) => plugin.name === '@automagik/bots-dsh');
+    expect(team?.versions.map((entry) => entry.version)).toEqual(['3.2', '3.1']);
+    expect(team?.title).toBeUndefined();
+    // Not listed yet: still not this product's to add.
+    expect(followIndex(listed(), omni, release, unchanged, [AUTOMAGIK]).plugins.some((plugin) => plugin.name === '@automagik/bots-dsh')).toBe(false);
+  });
+
+  it('keeps every version of a plugin a release no longer lists (a renamed package)', () => {
+    const before = listed();
+    before.plugins.push({ name: '@automagik/omni-ai-dsh', versions: [{ ...own('2.1', 'a'.repeat(40)), source: git('a'.repeat(40), 'apps/omni-ai-dsh') }] });
+    const dropped = template();
+    dropped.plugins = dropped.plugins.filter((plugin) => plugin.name !== '@automagik/omni-dsh');
+    const next = followIndex(before, dropped, release, unchanged);
+    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-dsh')).toEqual(listed().plugins[0]);
+    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-ai-dsh')?.versions.map((entry) => entry.version)).toEqual(['2.1']);
+  });
+
+  it("takes git sources from the products' repositories and the forks they vetted, and nothing else", () => {
+    const products: Product[] = JSON.parse(readFileSync(PRODUCTS_PATH, 'utf8')).products;
+    expect(products.map((product) => product.id)).toEqual(['omni', 'automagik']);
+    expect(sourceRepository('https://github.com/automagik-dev/automagik.git', products)).toBe(AUTOMAGIK);
+    expect(sourceRepository('https://github.com/automagik-genie/dsh-oh-my-claude', products)).toBe('https://github.com/automagik-genie/dsh-oh-my-claude');
+    expect(sourceRepository('https://github.com/someone/dsh-oh-my-claude', products)).toBeNull();
   });
 });
 

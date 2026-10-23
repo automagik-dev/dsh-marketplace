@@ -22,17 +22,28 @@ The market ships with DSH as an optional bundle. Turn it on, then add the index:
 
 DSH asks before it installs anything. When the index lists a newer version of a plugin you have, the market offers **Update**. A plugin added by name or address under Settings → Plugins → Add plugin is not updated that way; install from the market instead.
 
-Prefer not to set up DSH at all? [Omni desktop](https://github.com/automagik-dev/omni-desktop) is DSH with Omni's plugins already in it.
+Prefer not to set up DSH at all? The [Automagik desktop app](https://github.com/automagik-dev/automagik/tree/dev/apps/desktop) (`omni desktop`) is DSH with these plugins already in it.
 
 ## What is listed
 
 | Plugin | From | |
 |---|---|---|
-| Omni team (`@automagik/omni-dsh`) | [Omni](https://github.com/automagik-dev/omni) | The Bot team the others build on: the Main Bot and its Bots, sessions, memory and settings. Keeps its files in `~/.omni`, never in your DSH profile. |
-| Omni channels (`@automagik/omni-channels-dsh`) | Omni | Link your Omni: its channels, chats and automations, and what each Bot may do there. |
+| Bot team (`@automagik/bots-dsh`) | [Automagik](https://github.com/automagik-dev/automagik) | The Bot team Omni and Genie build on: the Main Bot and its Bots, sessions, memory and settings. Keeps its files in `~/.omni`, never in your DSH profile. |
+| Welcome & Connect AI (`@automagik/welcome-dsh`) | Automagik | The welcome, the team step, and Connect AI. |
+| Omni channels (`@automagik/omni-channels-dsh`) | [Omni](https://github.com/automagik-dev/omni) | Link your Omni: its channels, chats and automations, and what each Bot may do there. |
 | Omni canvases (`@automagik/omni-canvas-dsh`) | Omni | Live UI in the chat, drawn from your Omni. |
-| Omni welcome (`@automagik/omni-ai-dsh`) | Omni | The welcome, and Connect AI. |
-| Bring your own AI | vetted by Omni | Third-party providers (Codex, Claude Code, Kimi, OpenCode Go), each at the version Omni vetted: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
+| Bring your own AI | vetted by Omni | Third-party providers (Claude Code, AI subscriptions), each at the version Omni vetted from a reviewed fork at a pinned commit: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
+
+### Renamed
+
+The Bot team and the welcome moved from Omni's repository to [automagik-dev/automagik](https://github.com/automagik-dev/automagik), and their names changed with them:
+
+| Before | Now |
+|---|---|
+| `@automagik/omni-dsh` (Omni team) | `@automagik/bots-dsh` (Bot team) |
+| `@automagik/omni-ai-dsh` | `@automagik/welcome-dsh` |
+
+Every version listed under the old names stays listed and installs what it always did; new versions come under the new names. To move, install the new one: with both installed the newer one runs (they share the plugin id, `omni-ui` or `omni-ai`), and the team keeps its Bots, chats, memory and Omni link, which live in `~/.omni/ui`. Omni's channels and canvases work with either name. Remove the old one when you like. The Omni desktop app moved too: it is the [Automagik desktop app](https://github.com/automagik-dev/automagik/tree/dev/apps/desktop) now, and an installed one updates into it.
 
 ## Wanted
 
@@ -46,7 +57,7 @@ Plugins we want in the Automagik ecosystem, and what each needs before it is lis
 
 Every plugin carries its product's version: Omni's plugins are listed at each Omni release, pinned to that release's commit (a git source with the plugin's folder). A version, once listed, never changes what it installs. `products.json` names each product, where its own index lives in its repository, and the last release listed.
 
-`follow.yml` runs every 30 minutes. For each product that cut a newer release (`v<semver>`, prereleases included) whose own plugins are at that version, it lists them at it, takes the add-ons the product's index lists, checks the result, and commits it. Releases that do not carry their plugins at their version are skipped.
+`follow.yml` runs every 30 minutes. For each product that cut a newer release (`v<semver>`, prereleases included) whose own plugins are at that version, it lists them at it, takes the add-ons the product's index lists, checks the result, and commits it. Releases that do not carry their plugins at their version are skipped. A product's index entry from another product's repository is left to that product, and a plugin a release no longer lists keeps every version it has.
 
 ```sh
 bun install
@@ -57,11 +68,11 @@ bun scripts/market.ts follow     # list the products' newer releases
 
 ## Adding a product
 
-A product joins with an entry in `products.json`: its repository, the path of its own DSH market index there, and the release to start after. Its own plugins are the git entries from its repository in that index: their folders must hold built, installable packages at each release, at the product's version. Its other entries are the add-ons it vetted.
+A product joins with an entry in `products.json`: its repository, the path of its own DSH market index there, and the release to start after. Its own plugins are the git entries from its repository in that index: their folders must hold built, installable packages at each release, at the product's version. Its other entries are the add-ons it vetted; a git add-on must come from a repository the product lists under `vetted` (a reviewed fork), and `check` proves it like the products' own.
 
 ## Every Omni is a market too
 
-Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the add-ons it vetted. Omni desktop and the Omni channels plugin add it when you link an Omni.
+Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the add-ons it vetted. The Automagik desktop app and the Omni channels plugin add it when you link an Omni.
 
 ## License
 
