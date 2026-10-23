@@ -34,6 +34,14 @@ Prefer not to set up DSH at all? [Omni desktop](https://github.com/automagik-dev
 | Omni welcome (`@automagik/omni-ai-dsh`) | Omni | The welcome, and Connect AI. |
 | Bring your own AI | vetted by Omni | Third-party providers (Codex, Claude Code, Kimi, OpenCode Go), each at the version Omni vetted: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
 
+## Wanted
+
+Plugins we want in the Automagik ecosystem, and what each needs before it is listed. A plugin is listed once it loads on the DeepSeek Harness Omni's plugins are tested on (0.2.1-rc.2), and its source has been read at the version listed.
+
+| Plugin | What it brings | Before it is listed |
+|---|---|---|
+| [Herdr](https://github.com/sunny0826/dsh-plugin-herdr) (`dsh-plugin-herdr`, MIT) | DSH sessions observe and drive Herdr, the terminal workspace for AI coding agents: its workspaces, panes and agents, as `herdr_*` tools and a status panel. The agents Herdr runs (Claude Code, Codex and others) bring their own subscriptions. | 0.0.1 does not load on 0.2.1-rc.2: it ships DSH's own packages as dependencies pinned to 0.0.x/0.1.x (`@deepseek-ai/dsh-tools` 0.0.1-rc.1 imports a `CallId` that `@deepseek-ai/dsh-llm` 0.2.1-rc.2 no longer exports). They have to become peer dependencies, on the 0.2 API. Tracked in [#1](https://github.com/automagik-dev/dsh-marketplace/issues/1). |
+
 ## Versions
 
 Every plugin carries its product's version: Omni's plugins are listed at each Omni release, pinned to that release's commit (a git source with the plugin's folder). A version, once listed, never changes what it installs. `products.json` names each product, where its own index lives in its repository, and the last release listed.
