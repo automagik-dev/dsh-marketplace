@@ -10,6 +10,6 @@
     "follow": "bun scripts/market.ts follow"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-plugin-market-index": "0.2.1-rc.2"
+    "@deepseek-ai/dsh-plugin-market-index": "0.2.1-rc.3"
   }
 }
