@@ -71,6 +71,19 @@
       },
       "versions": [
         {
+          "version": "2.261023.3",
+          "publishTimestamp": 1792725517,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "73e6a8d98dfe4c7819cb8a194597136264e01afb",
+            "path": "apps/omni-ui-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "2.261019.10",
           "publishTimestamp": 1792556829,
           "source": {
@@ -152,6 +165,19 @@
       },
       "versions": [
         {
+          "version": "2.261023.3",
+          "publishTimestamp": 1792725517,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "73e6a8d98dfe4c7819cb8a194597136264e01afb",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "2.261019.10",
           "publishTimestamp": 1792556829,
           "source": {
@@ -192,6 +218,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261023.3",
+          "publishTimestamp": 1792725517,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "73e6a8d98dfe4c7819cb8a194597136264e01afb",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261019.10",
           "publishTimestamp": 1792556829,
@@ -234,6 +273,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261023.3",
+          "publishTimestamp": 1792725517,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "73e6a8d98dfe4c7819cb8a194597136264e01afb",
+            "path": "apps/omni-ai-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261019.10",
           "publishTimestamp": 1792556829,
