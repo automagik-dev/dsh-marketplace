@@ -36,7 +36,7 @@ Prefer not to set up DSH at all? [Omni desktop](https://github.com/automagik-dev
 
 ## Wanted
 
-Plugins we want in the Automagik ecosystem, and what each needs before it is listed. A plugin is listed once it loads on the DeepSeek Harness Omni's plugins are tested on (0.2.1-rc.2), and its source has been read at the version listed.
+Plugins we want in the Automagik ecosystem, and what each needs before it is listed. A plugin is listed once it loads on the DeepSeek Harness Omni's plugins are tested on (0.2.1-rc.3), and its source has been read at the version listed.
 
 | Plugin | What it brings | Before it is listed |
 |---|---|---|
