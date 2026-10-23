@@ -71,6 +71,32 @@
       },
       "versions": [
         {
+          "version": "2.261023.8",
+          "publishTimestamp": 1792742900,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "74abf2e52f86cc8fa8e4d171e9b43cd65a021e7d",
+            "path": "apps/omni-ui-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261023.7",
+          "publishTimestamp": 1792742735,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "07c26d62c87fe1e4682644a9883f9f60d9cf61c4",
+            "path": "apps/omni-ui-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "2.261023.6",
           "publishTimestamp": 1792727801,
           "source": {
@@ -204,6 +230,32 @@
       },
       "versions": [
         {
+          "version": "2.261023.8",
+          "publishTimestamp": 1792742900,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "74abf2e52f86cc8fa8e4d171e9b43cd65a021e7d",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261023.7",
+          "publishTimestamp": 1792742735,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "07c26d62c87fe1e4682644a9883f9f60d9cf61c4",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "2.261023.6",
           "publishTimestamp": 1792727801,
           "source": {
@@ -296,6 +348,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261023.8",
+          "publishTimestamp": 1792742900,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "74abf2e52f86cc8fa8e4d171e9b43cd65a021e7d",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261023.7",
+          "publishTimestamp": 1792742735,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "07c26d62c87fe1e4682644a9883f9f60d9cf61c4",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261023.6",
           "publishTimestamp": 1792727801,
@@ -390,6 +468,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261023.8",
+          "publishTimestamp": 1792742900,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "74abf2e52f86cc8fa8e4d171e9b43cd65a021e7d",
+            "path": "apps/omni-ai-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261023.7",
+          "publishTimestamp": 1792742735,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "07c26d62c87fe1e4682644a9883f9f60d9cf61c4",
+            "path": "apps/omni-ai-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261023.6",
           "publishTimestamp": 1792727801,
@@ -609,6 +713,44 @@
         {
           "version": "0.1.24",
           "publishTimestamp": 1792089970,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@goodandready/dsh-subscriptions",
+      "title": {
+        "en": "AI subscriptions"
+      },
+      "description": {
+        "en": "Sign in with the AI plans you already pay for, several accounts each: Grok, Cursor, Kiro, Perplexity, JetBrains AI, GLM, Qwen and more. Some sign-ins present themselves as the provider's own app; providers may object. Its own update button can move past this vetted version."
+      },
+      "author": "GooDAnDReaDY",
+      "homepage": "https://github.com/GooDAnDReaDY/dsh-subscriptions",
+      "metadata": {
+        "category": "ai",
+        "keywords": [
+          "grok",
+          "cursor",
+          "kiro",
+          "perplexity",
+          "subscriptions",
+          "oauth"
+        ],
+        "labels": [
+          "vetted",
+          "personal-use"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.7.19",
+          "publishTimestamp": 1792682329,
           "source": {
             "type": "npm"
           },
