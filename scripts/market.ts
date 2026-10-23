@@ -50,6 +50,8 @@ export interface Product {
   repository: string;
   index: string;
   release: { version: string; commit: string };
+  /** Third-party repositories (reviewed forks) whose pinned commits this product's index lists as add-ons. */
+  vetted?: string[];
 }
 export interface Release {
   repository: string;
@@ -66,13 +68,17 @@ const newestFirst = (a: IndexVersion, b: IndexVersion) => Bun.semver.order(b.ver
 /**
  * `index` with `release` of the product whose own index at that release is `template`.
  * `changed(path, from, to)` says whether a plugin's folder differs between two commits: a
- * version already listed at another commit must not have changed since.
+ * version already listed at another commit must not have changed since. `others` are the
+ * other products' repositories: an entry of the template from one of them is that product's
+ * to list (it follows its own releases), never this one's. A plugin the template no longer
+ * lists keeps every version it has: a listed version never changes or goes.
  */
 export function followIndex(
   index: Index,
   template: Index,
   release: Release,
   changed: (path: string, from: string, to: string) => boolean,
+  others: string[] = [],
 ): Index {
   const next: Index = structuredClone(index);
   next.metadata ??= {};
@@ -81,6 +87,7 @@ export function followIndex(
   }
   for (const wanted of template.plugins) {
     const { versions, ...about } = wanted;
+    if (others.some((repository) => isFrom(versions[0]?.source, repository))) continue;
     let plugin = next.plugins.find((entry) => entry.name === wanted.name);
     if (plugin) Object.assign(plugin, about);
     else {
@@ -144,6 +151,16 @@ function packageAt(dir: string, commit: string, path: string): { name?: string; 
   }
 }
 
+/** The repository a git source may come from: a product's own, or a fork one of them vetted; null for any other. */
+export function sourceRepository(url: string, products: Product[]): string | null {
+  for (const product of products) {
+    for (const repository of [product.repository, ...(product.vetted ?? [])]) {
+      if (sameRepository(repository, url)) return repository;
+    }
+  }
+  return null;
+}
+
 /** Every problem with `value`, empty when it is fit to serve. */
 export function checkIndex(value: unknown, products: Product[]): string[] {
   try {
@@ -158,15 +175,15 @@ export function checkIndex(value: unknown, products: Product[]): string[] {
       if (entry.source.type !== 'git') continue;
       const at = `${plugin.name}@${entry.version}`;
       const source = entry.source as GitSource;
-      const product = products.find((candidate) => sameRepository(candidate.repository, source.url));
-      if (!product) {
-        problems.push(`${at}: git sources come only from the products' repositories (${source.url})`);
+      const repository = sourceRepository(source.url, products);
+      if (!repository) {
+        problems.push(`${at}: git sources come only from the products' repositories or the forks they vetted (${source.url})`);
         continue;
       }
-      if (!clones.has(product.repository)) clones.set(product.repository, clone(product.repository));
-      const dir = clones.get(product.repository) as string;
+      if (!clones.has(repository)) clones.set(repository, clone(repository));
+      const dir = clones.get(repository) as string;
       if (!gitOk(dir, ['cat-file', '-e', `${source.commit}^{commit}`])) {
-        problems.push(`${at}: ${product.repository} has no commit ${source.commit}`);
+        problems.push(`${at}: ${repository} has no commit ${source.commit}`);
         continue;
       }
       const manifest = packageAt(dir, source.commit, source.path ?? '.');
@@ -219,7 +236,8 @@ export async function follow(index: Index, products: Product[], say: (line: stri
         continue;
       }
       const release = { repository: product.repository, version, commit, timestamp: Number(git(dir, ['show', '-s', '--format=%ct', commit])) };
-      next = followIndex(next, template, release, (path, from, to) => !gitOk(dir, ['diff', '--quiet', from, to, '--', path]));
+      const others = products.filter((other) => other !== product).map((other) => other.repository);
+      next = followIndex(next, template, release, (path, from, to) => !gitOk(dir, ['diff', '--quiet', from, to, '--', path]), others);
       product.release = { version, commit };
       say(`${product.id} ${version}: ${own.map((plugin) => plugin.name).join(', ')} at ${commit.slice(0, 9)}`);
     }
