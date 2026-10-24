@@ -8,11 +8,6 @@
   },
   "metadata": {
     "categories": {
-      "automagik": {
-        "title": {
-          "en": "Automagik"
-        }
-      },
       "omni": {
         "title": {
           "en": "Omni"
@@ -21,6 +16,11 @@
       "ai": {
         "title": {
           "en": "Bring your own AI"
+        }
+      },
+      "automagik": {
+        "title": {
+          "en": "Automagik"
         }
       }
     },
@@ -512,7 +512,7 @@
         "en": "Omni channels"
       },
       "description": {
-        "en": "Link your Omni with a QR and your own WhatsApp: its channels and chats in DSH, the Omni Bot operating them, and automations on its events. Needs Omni team."
+        "en": "Link your Omni with a QR and your own WhatsApp: its channels and chats in DSH, the Omni Bot operating them, and automations on its events. Needs the Bot team."
       },
       "author": "Automagik",
       "homepage": "https://github.com/automagik-dev/omni/tree/dev/apps/omni-channels-dsh#readme",
@@ -533,6 +533,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261024.2",
+          "publishTimestamp": 1792849471,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "c9c96f6e09b95ec7d9fb852a25268b6275c9ac8b",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261024.1",
+          "publishTimestamp": 1792849228,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "981642cf8eb12890e70549abf2ff0dd5ba6fc402",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261023.32",
           "publishTimestamp": 1792793367,
@@ -931,7 +957,7 @@
         "en": "Omni canvases"
       },
       "description": {
-        "en": "The Omni Bot shows what it found as live UI in the chat, drawn from your Omni. Needs Omni team and Omni channels."
+        "en": "The Omni Bot shows what it found as live UI in the chat, drawn from your Omni. Needs the Bot team and Omni channels."
       },
       "author": "Automagik",
       "homepage": "https://github.com/automagik-dev/omni/tree/dev/apps/omni-canvas-dsh#readme",
@@ -951,6 +977,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261024.2",
+          "publishTimestamp": 1792849471,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "c9c96f6e09b95ec7d9fb852a25268b6275c9ac8b",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261024.1",
+          "publishTimestamp": 1792849228,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "981642cf8eb12890e70549abf2ff0dd5ba6fc402",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261023.32",
           "publishTimestamp": 1792793367,
