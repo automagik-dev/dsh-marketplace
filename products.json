@@ -14,8 +14,8 @@
       "repository": "https://github.com/automagik-dev/automagik",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "3.10.0",
-        "commit": "ee908c1a3c936e898c9b03f14d000c6c4934aba8"
+        "version": "3.11.0",
+        "commit": "dad06c1f31ed0f5586363f6fa2120639cb41fb91"
       },
       "vetted": [
         "https://github.com/automagik-genie/dsh-oh-my-claude",
