@@ -5,8 +5,8 @@
       "repository": "https://github.com/automagik-dev/omni",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "2.261024.6",
-        "commit": "9e2f71ce65b4aeb2eb90e76124de676ac4fd9870"
+        "version": "2.261025.4",
+        "commit": "0e884c39640f33548434be8bcada9c47c81b62ae"
       }
     },
     {
@@ -14,8 +14,8 @@
       "repository": "https://github.com/automagik-dev/automagik",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "3.2.0",
-        "commit": "0f5a27a20bb120b21debcbc42ffca7ef52d46100"
+        "version": "3.9.0",
+        "commit": "fe95ece2904164c9a772e332849a26b60a638fb5"
       },
       "vetted": [
         "https://github.com/automagik-genie/dsh-oh-my-claude",
