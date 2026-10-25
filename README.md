@@ -32,7 +32,7 @@ Prefer not to set up DSH at all? The [Automagik desktop app](https://github.com/
 | Welcome & Connect AI (`@automagik/welcome-dsh`) | Automagik | The welcome, the team step, and Connect AI. |
 | Omni channels (`@automagik/omni-channels-dsh`) | [Omni](https://github.com/automagik-dev/omni) | Link your Omni: its channels, chats and automations, and what each Bot may do there. |
 | Omni canvases (`@automagik/omni-canvas-dsh`) | Omni | Live UI in the chat, drawn from your Omni. |
-| Bring your own AI | vetted by Omni | Third-party providers (Claude Code, AI subscriptions), each at the version Omni vetted from a reviewed fork at a pinned commit: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
+| Bring your own AI | vetted by Automagik | Third-party providers (Claude Code, AI subscriptions), each at the version Automagik vetted from a reviewed fork at a pinned commit: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
 
 ### Renamed
 
