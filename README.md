@@ -72,7 +72,7 @@ A product joins with an entry in `products.json`: its repository, the path of it
 
 ## Every Omni is a market too
 
-Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the add-ons it vetted. The Automagik desktop app and the Omni channels plugin add it when you link an Omni.
+Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the Bot team and the welcome at the Automagik release it was tested with. The outside add-ons Automagik vetted are in the Automagik market above, not an Omni's. The Automagik desktop app and the Omni channels plugin add it when you link an Omni.
 
 ## License
 
