@@ -28,8 +28,9 @@ Prefer not to set up DSH at all? The [Automagik desktop app](https://github.com/
 
 | Plugin | From | |
 |---|---|---|
-| Bot team (`@automagik/bots-dsh`) | [Automagik](https://github.com/automagik-dev/automagik) | The Bot team Omni and Genie build on: the Main Bot and its Bots, sessions, memory and settings. Keeps its files in `~/.omni`, never in your DSH profile. |
+| Bot team (`@automagik/bots-dsh`) | [Automagik](https://github.com/automagik-dev/automagik) | The Bot team Omni and Genie build on: the Main Bot and its Bots, sessions, memory and settings. Keeps its files in `~/.automagik`, never in your DSH profile. |
 | Welcome & Connect AI (`@automagik/welcome-dsh`) | Automagik | The welcome, the team step, and Connect AI. |
+| Genie (`@automagik/genie-dsh`) | [Genie](https://github.com/automagik-dev/genie), listed by Automagik | Genie joins your Bot team and grants wishes, each in its own git worktree of your project. Needs the Bot team and git. |
 | Omni channels (`@automagik/omni-channels-dsh`) | [Omni](https://github.com/automagik-dev/omni) | Link your Omni: its channels, chats and automations, and what each Bot may do there. |
 | Omni canvases (`@automagik/omni-canvas-dsh`) | Omni | Live UI in the chat, drawn from your Omni. |
 | Bring your own AI | vetted by Automagik | Third-party providers (Claude Code, AI subscriptions), each at the version Automagik vetted from a reviewed fork at a pinned commit: no install scripts, no telemetry, credentials in DSH's own store, the source read at that version. |
@@ -72,7 +73,7 @@ A product joins with an entry in `products.json`: its repository, the path of it
 
 ## Every Omni is a market too
 
-Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the Bot team and the welcome at the Automagik release it was tested with. The outside add-ons Automagik vetted are in the Automagik market above, not an Omni's. The Automagik desktop app and the Omni channels plugin add it when you link an Omni.
+Each Omni serves the market for its own release at `https://<your-omni>/api/market/index.json`: its own plugins at exactly its version, plus the Bot team and the welcome at the Automagik release it was tested with. The outside add-ons Automagik vetted are in the Automagik market above, not an Omni's. The Automagik desktop app lists this market from its first start; the Omni channels plugin adds an Omni's own market beside it when you link that Omni.
 
 ## License
 

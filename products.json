@@ -18,6 +18,7 @@
         "commit": "dad06c1f31ed0f5586363f6fa2120639cb41fb91"
       },
       "vetted": [
+        "https://github.com/automagik-dev/genie",
         "https://github.com/automagik-genie/dsh-oh-my-claude",
         "https://github.com/automagik-genie/dsh-subscriptions"
       ]
