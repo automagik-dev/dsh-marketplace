@@ -534,6 +534,32 @@
       },
       "versions": [
         {
+          "version": "2.261026.14",
+          "publishTimestamp": 1792996134,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "01ccb38c0520f928f9a6f3cfd652f39b272d3611",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
+        {
+          "version": "2.261026.8",
+          "publishTimestamp": 1792989727,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "894a5e2d6ad29b48e13cc56c3e5ab2f5245f2826",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
+        {
           "version": "2.261026.1",
           "publishTimestamp": 1792974802,
           "source": {

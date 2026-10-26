@@ -5,8 +5,8 @@
       "repository": "https://github.com/automagik-dev/omni",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "2.261026.1",
-        "commit": "29df74ffe1b6f74138e3a850a83f588108676671"
+        "version": "2.261026.15",
+        "commit": "90a630f631a4eecd718852cc6f2da3759863a60c"
       }
     },
     {
