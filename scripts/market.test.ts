@@ -46,6 +46,15 @@ describe('following a product release', () => {
     expect(Object.keys(next.metadata?.labels ?? {})).toEqual(['official', 'fresh']);
   });
 
+  it("lists a new version with its own package.json's DSH range, not the one the template's previous entry carried", () => {
+    const next = followIndex(listed(), template(), release, unchanged, [], (path) => (path === 'apps/omni-ui-dsh' ? '>=0.2.1-rc.3 <0.2.2-0' : undefined));
+    const team = next.plugins.find((plugin) => plugin.name === '@automagik/omni-dsh');
+    expect(team?.versions[0].engines).toEqual({ dsh: '>=0.2.1-rc.3 <0.2.2-0' });
+    // A listed version keeps what it was listed with; a manifest without a range keeps the template's.
+    expect(team?.versions[1].engines).toEqual({ dsh: '>=0.2.1-rc.2 <0.3.0' });
+    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-new-dsh')?.versions[0].engines).toEqual({ dsh: '>=0.2.1-rc.2 <0.3.0' });
+  });
+
   it('never moves a listed version to a commit where its plugin changed', () => {
     const before = listed();
     before.plugins[0].versions.unshift(own('2.2', 'e'.repeat(40)));
