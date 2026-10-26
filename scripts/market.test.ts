@@ -47,7 +47,7 @@ describe('following a product release', () => {
   });
 
   it("lists a new version with its own package.json's DSH range, not the one the template's previous entry carried", () => {
-    const next = followIndex(listed(), template(), release, unchanged, [], (path) => (path === 'apps/omni-ui-dsh' ? '>=0.2.1-rc.3 <0.2.2-0' : undefined));
+    const next = followIndex(listed(), template(), release, unchanged, [], (path) => (path === 'apps/omni-ui-dsh' ? { version: '2.2', engines: { dsh: '>=0.2.1-rc.3 <0.2.2-0' } } : null));
     const team = next.plugins.find((plugin) => plugin.name === '@automagik/omni-dsh');
     expect(team?.versions[0].engines).toEqual({ dsh: '>=0.2.1-rc.3 <0.2.2-0' });
     // A listed version keeps what it was listed with; a manifest without a range keeps the template's.
@@ -60,6 +60,18 @@ describe('following a product release', () => {
     before.plugins[0].versions.unshift(own('2.2', 'e'.repeat(40)));
     expect(followIndex(before, template(), release, unchanged).plugins[0].versions[0].source).toEqual(git('e'.repeat(40)));
     expect(() => followIndex(before, template(), release, () => true)).toThrow('must bump the version');
+  });
+
+  it('lists each plugin at its own version: one the release did not bump stays as it was listed', () => {
+    const before = listed();
+    before.plugins.push({ name: '@automagik/omni-new-dsh', versions: [{ ...own('2.1', 'a'.repeat(40)), source: git('a'.repeat(40), 'apps/omni-new-dsh') }] });
+    const manifests: Record<string, { version: string }> = { 'apps/omni-ui-dsh': { version: '2.2' }, 'apps/omni-new-dsh': { version: '2.1' } };
+    const next = followIndex(before, template(), release, unchanged, [], (path) => manifests[path] ?? null);
+    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-dsh')?.versions.map((entry) => entry.version)).toEqual(['2.2', '2.1', '2.0']);
+    const kept = next.plugins.find((plugin) => plugin.name === '@automagik/omni-new-dsh');
+    expect(kept?.versions).toEqual(before.plugins[2].versions);
+    // Changed since it was listed, at the same version: the product forgot to bump it.
+    expect(() => followIndex(before, template(), release, () => true, [], (path) => manifests[path] ?? null)).toThrow('@automagik/omni-new-dsh@2.1');
   });
 });
 
