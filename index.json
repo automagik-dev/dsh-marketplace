@@ -534,6 +534,32 @@
       },
       "versions": [
         {
+          "version": "2.261026.1",
+          "publishTimestamp": 1792974802,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "29df74ffe1b6f74138e3a850a83f588108676671",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261025.27",
+          "publishTimestamp": 1792972729,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "c10b36270c13b954b9b94f53ea8c1a40328858d4",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "2.261025.7",
           "publishTimestamp": 1792906972,
           "source": {
@@ -1120,6 +1146,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261026.1",
+          "publishTimestamp": 1792974802,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "29df74ffe1b6f74138e3a850a83f588108676671",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
+          "version": "2.261025.27",
+          "publishTimestamp": 1792972729,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "c10b36270c13b954b9b94f53ea8c1a40328858d4",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "2.261025.7",
           "publishTimestamp": 1792906972,
@@ -2368,6 +2420,19 @@
       },
       "versions": [
         {
+          "version": "3.18.0",
+          "publishTimestamp": 1792974535,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "aab04cfcf4f503bb21fc4e0c5dfe2b55906307e2",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "3.17.0",
           "publishTimestamp": 1792971532,
           "source": {
@@ -2603,6 +2668,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "3.18.0",
+          "publishTimestamp": 1792974535,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "aab04cfcf4f503bb21fc4e0c5dfe2b55906307e2",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
         {
           "version": "3.17.0",
           "publishTimestamp": 1792971532,
