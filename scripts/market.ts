@@ -4,12 +4,14 @@
  * made from each Automagik product's own index (products.json) at that product's releases.
  *
  *   bun scripts/market.ts check     DSH's own parser, then every git entry proven against its repository
- *   bun scripts/market.ts follow    take each product's newer releases whose plugins carry the release's version
+ *   bun scripts/market.ts follow    take each product's newer releases, each plugin at its own version
  *
  * A product's own plugins are the git entries from its repository in its index. Each release of
- * the product lists them at the product's version, pinned to the release commit, so a plugin's
- * version is always its product's. The product's other entries (third-party add-ons it vetted)
- * are listed as its release lists them. A version, once listed, never changes what it installs.
+ * the product lists every one whose package.json version at the release commit is not listed yet,
+ * pinned to that commit. A plugin's version is the one its product gave it: Automagik's carry each
+ * Automagik release; Omni's carry the Omni release of their last change. The product's other
+ * entries (third-party add-ons it vetted) are listed as its release lists them. A version, once
+ * listed, never changes what it installs.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -65,6 +67,13 @@ export const isFrom = (source: IndexVersion['source'] | undefined, repository: s
   source?.type === 'git' && typeof source.url === 'string' && sameRepository(source.url, repository);
 const newestFirst = (a: IndexVersion, b: IndexVersion) => Bun.semver.order(b.version, a.version);
 
+/** What a plugin's package.json at a release commit says, as far as the market reads it. */
+export interface Manifest {
+  name?: string;
+  version?: string;
+  engines?: { dsh?: string };
+}
+
 /**
  * `index` with `release` of the product whose own index at that release is `template`.
  * `changed(path, from, to)` says whether a plugin's folder differs between two commits: a
@@ -72,10 +81,10 @@ const newestFirst = (a: IndexVersion, b: IndexVersion) => Bun.semver.order(b.ver
  * other products' repositories: an entry of the template from one of them is that product's
  * to list (it follows its own releases), never this one's. A plugin the template no longer
  * lists keeps every version it has: a listed version never changes or goes.
- * `enginesOf(path)` is the plugin's own declared DSH range at the release commit (its
- * package.json engines.dsh), which is what DSH admits it on: a new version lists that range,
- * not the one the template's previous entry carried (the template at the tag still lists the
- * release before, so its range lags by one release).
+ * `manifestOf(path)` is the plugin's package.json at the release commit. Its version is the one
+ * listed (the release's when it has none), and its engines.dsh is what DSH admits it on: a new
+ * version lists that range, not the one the template's previous entry carried (the template at
+ * the tag still lists the release before, so its range lags by one release).
  */
 export function followIndex(
   index: Index,
@@ -83,12 +92,14 @@ export function followIndex(
   release: Release,
   changed: (path: string, from: string, to: string) => boolean,
   others: string[] = [],
-  enginesOf: (path: string) => string | undefined = () => undefined,
+  manifestOf: (path: string) => Manifest | null = () => null,
 ): Index {
   const next: Index = structuredClone(index);
   next.metadata ??= {};
   for (const kind of ['categories', 'labels'] as const) {
-    next.metadata[kind] = { ...(template.metadata?.[kind] ?? {}), ...(next.metadata[kind] ?? {}) };
+    // What is listed keeps its place; the template's new entries come after it.
+    const kept = next.metadata[kind] ?? {};
+    next.metadata[kind] = { ...kept, ...Object.fromEntries(Object.entries(template.metadata?.[kind] ?? {}).filter(([key]) => !Object.hasOwn(kept, key))) };
   }
   for (const wanted of template.plugins) {
     const { versions, ...about } = wanted;
@@ -106,19 +117,21 @@ export function followIndex(
       continue;
     }
     const path = latest.source.path ?? '.';
-    const listed = plugin.versions.find((entry) => entry.version === release.version);
+    const manifest = manifestOf(path);
+    const version = manifest?.version ?? release.version;
+    const listed = plugin.versions.find((entry) => entry.version === version);
     if (listed) {
       if (isFrom(listed.source, release.repository) && listed.source.commit !== release.commit
         && changed(path, listed.source.commit, release.commit)) {
-        throw new Error(`${wanted.name}@${release.version} is listed at ${listed.source.commit.slice(0, 9)} and changed since: its product must bump the version`);
+        throw new Error(`${wanted.name}@${version} is listed at ${listed.source.commit.slice(0, 9)} and changed since: its product must bump the version`);
       }
       continue;
     }
-    const dsh = enginesOf(path);
+    const dsh = manifest?.engines?.dsh;
     const engines = dsh === undefined ? {} : { engines: { ...((latest as { engines?: object }).engines ?? {}), dsh } };
     plugin.versions.push({
       ...structuredClone(latest),
-      version: release.version,
+      version,
       publishTimestamp: release.timestamp,
       source: { ...latest.source, commit: release.commit },
       ...engines,
@@ -151,7 +164,7 @@ function clone(repository: string): string {
   return dir;
 }
 
-function packageAt(dir: string, commit: string, path: string): { name?: string; version?: string; engines?: { dsh?: string } } | null {
+function packageAt(dir: string, commit: string, path: string): Manifest | null {
   try {
     return JSON.parse(git(dir, ['show', `${commit}:${path === '.' ? '' : `${path}/`}package.json`]));
   } catch {
@@ -239,20 +252,30 @@ export async function follow(index: Index, products: Product[], say: (line: stri
         continue;
       }
       const own = template.plugins.filter((plugin) => isFrom(plugin.versions[0]?.source, product.repository));
-      const behind = own.filter((plugin) => {
-        const source = plugin.versions[0]?.source as GitSource;
-        return packageAt(dir, commit, source.path ?? '.')?.version !== version;
+      const manifests = new Map(own.map((plugin) => {
+        const path = (plugin.versions[0]?.source as GitSource).path ?? '.';
+        return [path, packageAt(dir, commit, path)] as const;
+      }));
+      const unversioned = own.filter((plugin) => {
+        const manifest = manifests.get((plugin.versions[0]?.source as GitSource).path ?? '.');
+        return manifest?.name !== plugin.name || !manifest.version;
       });
-      if (own.length === 0 || behind.length > 0) {
-        say(`${product.id} ${version}: ${own.length === 0 ? 'lists no plugins of its own' : `${behind.map((plugin) => plugin.name).join(', ')} not at ${version}`}, skipped`);
+      if (own.length === 0 || unversioned.length > 0) {
+        say(`${product.id} ${version}: ${own.length === 0 ? 'lists no plugins of its own' : `${unversioned.map((plugin) => plugin.name).join(', ')} has no package.json of that name and a version`}, skipped`);
         continue;
       }
       const release = { repository: product.repository, version, commit, timestamp: Number(git(dir, ['show', '-s', '--format=%ct', commit])) };
       const others = products.filter((other) => other !== product).map((other) => other.repository);
+      const before = next;
       next = followIndex(next, template, release, (path, from, to) => !gitOk(dir, ['diff', '--quiet', from, to, '--', path]), others,
-        (path) => packageAt(dir, commit, path)?.engines?.dsh);
+        (path) => manifests.get(path) ?? null);
       product.release = { version, commit };
-      say(`${product.id} ${version}: ${own.map((plugin) => plugin.name).join(', ')} at ${commit.slice(0, 9)}`);
+      const added = own.flatMap((plugin) => {
+        const at = manifests.get((plugin.versions[0]?.source as GitSource).path ?? '.')?.version as string;
+        const was = before.plugins.find((entry) => entry.name === plugin.name);
+        return was?.versions.some((entry) => entry.version === at) ? [] : [`${plugin.name}@${at}`];
+      });
+      say(`${product.id} ${version}: ${added.length === 0 ? 'no plugin changed' : added.join(', ')} at ${commit.slice(0, 9)}`);
     }
   }
   return next;
