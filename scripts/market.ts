@@ -72,6 +72,10 @@ const newestFirst = (a: IndexVersion, b: IndexVersion) => Bun.semver.order(b.ver
  * other products' repositories: an entry of the template from one of them is that product's
  * to list (it follows its own releases), never this one's. A plugin the template no longer
  * lists keeps every version it has: a listed version never changes or goes.
+ * `enginesOf(path)` is the plugin's own declared DSH range at the release commit (its
+ * package.json engines.dsh), which is what DSH admits it on: a new version lists that range,
+ * not the one the template's previous entry carried (the template at the tag still lists the
+ * release before, so its range lags by one release).
  */
 export function followIndex(
   index: Index,
@@ -79,6 +83,7 @@ export function followIndex(
   release: Release,
   changed: (path: string, from: string, to: string) => boolean,
   others: string[] = [],
+  enginesOf: (path: string) => string | undefined = () => undefined,
 ): Index {
   const next: Index = structuredClone(index);
   next.metadata ??= {};
@@ -109,11 +114,14 @@ export function followIndex(
       }
       continue;
     }
+    const dsh = enginesOf(path);
+    const engines = dsh === undefined ? {} : { engines: { ...((latest as { engines?: object }).engines ?? {}), dsh } };
     plugin.versions.push({
       ...structuredClone(latest),
       version: release.version,
       publishTimestamp: release.timestamp,
       source: { ...latest.source, commit: release.commit },
+      ...engines,
     });
     plugin.versions.sort(newestFirst);
   }
@@ -143,7 +151,7 @@ function clone(repository: string): string {
   return dir;
 }
 
-function packageAt(dir: string, commit: string, path: string): { name?: string; version?: string } | null {
+function packageAt(dir: string, commit: string, path: string): { name?: string; version?: string; engines?: { dsh?: string } } | null {
   try {
     return JSON.parse(git(dir, ['show', `${commit}:${path === '.' ? '' : `${path}/`}package.json`]));
   } catch {
@@ -190,6 +198,10 @@ export function checkIndex(value: unknown, products: Product[]): string[] {
       if (!manifest) problems.push(`${at}: ${source.commit} has no ${source.path ?? '.'}/package.json`);
       else if (manifest.name !== plugin.name || manifest.version !== entry.version)
         problems.push(`${at}: ${source.commit.slice(0, 9)}:${source.path}/package.json is ${manifest.name}@${manifest.version}`);
+      // DSH admits a product's own plugin on its package.json range; the market must not promise
+      // another. A vetted add-on's range is the vetting product's own call (it may be stricter).
+      else if (products.some((product) => sameRepository(product.repository, repository)) && manifest.engines?.dsh !== undefined && (entry as { engines?: { dsh?: string } }).engines?.dsh !== manifest.engines.dsh)
+        problems.push(`${at}: lists dsh ${(entry as { engines?: { dsh?: string } }).engines?.dsh ?? '(none)'} but its package.json declares ${manifest.engines.dsh}`);
     }
   }
   return problems;
@@ -237,7 +249,8 @@ export async function follow(index: Index, products: Product[], say: (line: stri
       }
       const release = { repository: product.repository, version, commit, timestamp: Number(git(dir, ['show', '-s', '--format=%ct', commit])) };
       const others = products.filter((other) => other !== product).map((other) => other.repository);
-      next = followIndex(next, template, release, (path, from, to) => !gitOk(dir, ['diff', '--quiet', from, to, '--', path]), others);
+      next = followIndex(next, template, release, (path, from, to) => !gitOk(dir, ['diff', '--quiet', from, to, '--', path]), others,
+        (path) => packageAt(dir, commit, path)?.engines?.dsh);
       product.release = { version, commit };
       say(`${product.id} ${version}: ${own.map((plugin) => plugin.name).join(', ')} at ${commit.slice(0, 9)}`);
     }

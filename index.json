@@ -543,7 +543,7 @@
             "path": "apps/omni-channels-dsh"
           },
           "engines": {
-            "dsh": ">=0.2.1-rc.2 <0.3.0"
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
           }
         },
         {
@@ -1156,7 +1156,7 @@
             "path": "apps/omni-canvas-dsh"
           },
           "engines": {
-            "dsh": ">=0.2.1-rc.2 <0.3.0"
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
           }
         },
         {
@@ -2429,7 +2429,7 @@
             "path": "apps/bots-dsh"
           },
           "engines": {
-            "dsh": ">=0.2.1-rc.2 <0.3.0"
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
           }
         },
         {
@@ -2678,7 +2678,7 @@
             "path": "apps/welcome-dsh"
           },
           "engines": {
-            "dsh": ">=0.2.1-rc.2 <0.3.0"
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
           }
         },
         {
