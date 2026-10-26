@@ -2236,12 +2236,12 @@
       },
       "versions": [
         {
-          "version": "1.5.6-omni.5",
+          "version": "1.5.6-omni.6",
           "publishTimestamp": 1792974586,
           "source": {
             "type": "git",
             "url": "https://github.com/automagik-genie/dsh-oh-my-claude",
-            "commit": "3c851e08010c82ae21e217f5bc65dada3847d304"
+            "commit": "5a2ca3b7258b92e262ea9059fcd035cf07a31776"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.2 <0.3.0"
@@ -2431,6 +2431,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "3.24.0",
+          "publishTimestamp": 1792984877,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "0260ed7bcfefb74f3966bc204fce2e4c456d6b75",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
         {
           "version": "3.23.0",
           "publishTimestamp": 1792983830,
@@ -2745,6 +2758,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "3.24.0",
+          "publishTimestamp": 1792984877,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "0260ed7bcfefb74f3966bc204fce2e4c456d6b75",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
         {
           "version": "3.23.0",
           "publishTimestamp": 1792983830,
