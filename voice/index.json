@@ -1,0 +1,278 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH Voice Studio",
+    "pt-br": "DSH Voice Studio"
+  },
+  "description": {
+    "en": "Voice for DeepSeek Harness: a shared runtime and the builder, playground, simulations and observatory plugins.",
+    "pt-br": "Voz para o DeepSeek Harness: um runtime compartilhado e os plugins de construtor, playground, simulações e observatório."
+  },
+  "metadata": {
+    "categories": {
+      "voice": {
+        "title": {
+          "en": "Voice",
+          "pt-br": "Voz"
+        }
+      }
+    },
+    "labels": {
+      "audio": {
+        "title": {
+          "en": "Audio",
+          "pt-br": "Áudio"
+        }
+      },
+      "realtime": {
+        "title": {
+          "en": "Real-time",
+          "pt-br": "Tempo real"
+        }
+      },
+      "testing": {
+        "title": {
+          "en": "Testing",
+          "pt-br": "Testes"
+        }
+      },
+      "web": {
+        "title": {
+          "en": "Web",
+          "pt-br": "Web"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "@dsh-voice/runtime",
+      "title": {
+        "en": "Voice runtime",
+        "pt-br": "Runtime de voz"
+      },
+      "description": {
+        "en": "The host side of the voice studio: the voice service, the worker harness, storage and the diagnostics commands the other voice plugins share.",
+        "pt-br": "O lado host do voice studio: o serviço de voz, o harness do worker, o armazenamento e os comandos de diagnóstico compartilhados pelos outros plugins de voz."
+      },
+      "author": "Namastex Labs",
+      "homepage": "https://github.com/namastexlabs/dsh-livekit",
+      "repository": {
+        "url": "https://github.com/namastexlabs/dsh-livekit",
+        "directory": "packages/runtime"
+      },
+      "metadata": {
+        "category": "voice",
+        "keywords": [
+          "voice",
+          "runtime",
+          "livekit",
+          "audio",
+          "dsh"
+        ],
+        "labels": [
+          "audio",
+          "realtime"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793105528,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/namastexlabs/dsh-livekit",
+            "commit": "c98770c3bd5758b3a6e617c3d28187a5088af3e6",
+            "path": "packages/runtime"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@dsh-voice/agent-builder",
+      "title": {
+        "en": "Voice agent builder",
+        "pt-br": "Construtor de agente de voz"
+      },
+      "description": {
+        "en": "Build and tune the voice agent: its instructions, tools and voice, in a Web panel beside the chat.",
+        "pt-br": "Construa e ajuste o agente de voz: instruções, ferramentas e voz, em um painel Web ao lado do chat."
+      },
+      "author": "Namastex Labs",
+      "homepage": "https://github.com/namastexlabs/dsh-livekit",
+      "repository": {
+        "url": "https://github.com/namastexlabs/dsh-livekit",
+        "directory": "packages/agent-builder"
+      },
+      "metadata": {
+        "category": "voice",
+        "keywords": [
+          "voice",
+          "agent",
+          "builder",
+          "prompt",
+          "dsh"
+        ],
+        "labels": [
+          "audio"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793105528,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/namastexlabs/dsh-livekit",
+            "commit": "c98770c3bd5758b3a6e617c3d28187a5088af3e6",
+            "path": "packages/agent-builder"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@dsh-voice/playground",
+      "title": {
+        "en": "Voice playground",
+        "pt-br": "Playground de voz"
+      },
+      "description": {
+        "en": "Talk to the voice agent in the chat: live audio in the browser, with the session panel, mute and the call receipt.",
+        "pt-br": "Converse com o agente de voz no chat: áudio ao vivo no navegador, com o painel da sessão, mudo e o recibo da chamada."
+      },
+      "author": "Namastex Labs",
+      "homepage": "https://github.com/namastexlabs/dsh-livekit",
+      "repository": {
+        "url": "https://github.com/namastexlabs/dsh-livekit",
+        "directory": "packages/playground"
+      },
+      "metadata": {
+        "category": "voice",
+        "keywords": [
+          "voice",
+          "playground",
+          "livekit",
+          "audio",
+          "dsh"
+        ],
+        "labels": [
+          "audio",
+          "realtime",
+          "web"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793105528,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/namastexlabs/dsh-livekit",
+            "commit": "c98770c3bd5758b3a6e617c3d28187a5088af3e6",
+            "path": "packages/playground"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@dsh-voice/simulations",
+      "title": {
+        "en": "Voice simulations",
+        "pt-br": "Simulações de voz"
+      },
+      "description": {
+        "en": "Run scripted voice conversations against the agent and read what it said and did, as a simulation report.",
+        "pt-br": "Rode conversas de voz roteirizadas com o agente e leia o que ele disse e fez, como um relatório de simulação."
+      },
+      "author": "Namastex Labs",
+      "homepage": "https://github.com/namastexlabs/dsh-livekit",
+      "repository": {
+        "url": "https://github.com/namastexlabs/dsh-livekit",
+        "directory": "packages/simulations"
+      },
+      "metadata": {
+        "category": "voice",
+        "keywords": [
+          "voice",
+          "simulations",
+          "testing",
+          "audio",
+          "dsh"
+        ],
+        "labels": [
+          "audio",
+          "testing"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793105528,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/namastexlabs/dsh-livekit",
+            "commit": "c98770c3bd5758b3a6e617c3d28187a5088af3e6",
+            "path": "packages/simulations"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@dsh-voice/observatory",
+      "title": {
+        "en": "Voice observatory",
+        "pt-br": "Observatório de voz"
+      },
+      "description": {
+        "en": "Voice diagnostics in the account menu: what the runtime resolved, worker health, and a redacted export to share.",
+        "pt-br": "Diagnósticos de voz no menu da conta: o que o runtime resolveu, a saúde do worker e uma exportação redigida para compartilhar."
+      },
+      "author": "Namastex Labs",
+      "homepage": "https://github.com/namastexlabs/dsh-livekit",
+      "repository": {
+        "url": "https://github.com/namastexlabs/dsh-livekit",
+        "directory": "packages/observatory"
+      },
+      "metadata": {
+        "category": "voice",
+        "keywords": [
+          "voice",
+          "diagnostics",
+          "observability",
+          "audio",
+          "dsh"
+        ],
+        "labels": [
+          "audio"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793105528,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/namastexlabs/dsh-livekit",
+            "commit": "c98770c3bd5758b3a6e617c3d28187a5088af3e6",
+            "path": "packages/observatory"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
