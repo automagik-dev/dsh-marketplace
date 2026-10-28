@@ -76,6 +76,19 @@
       },
       "versions": [
         {
+          "version": "2.261028.5",
+          "publishTimestamp": 1793197826,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "2f1f63c7ce34791086ed75f608dc797dc84c83ce",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
+        {
           "version": "2.261028.3",
           "publishTimestamp": 1793173512,
           "source": {
@@ -779,6 +792,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "2.261028.5",
+          "publishTimestamp": 1793197826,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "2f1f63c7ce34791086ed75f608dc797dc84c83ce",
+            "path": "apps/omni-canvas-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
         {
           "version": "2.261026.1",
           "publishTimestamp": 1792974802,
@@ -1620,6 +1646,32 @@
       },
       "versions": [
         {
+          "version": "3.35.1",
+          "publishTimestamp": 1793194457,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "6e1208914483183c0cb15fa887162bf90b0891e5",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.35.0",
+          "publishTimestamp": 1793194303,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "01b558637ea4512d218ae2e8cbf6b216fbd10c9c",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
           "version": "3.34.0",
           "publishTimestamp": 1793163992,
           "source": {
@@ -2258,6 +2310,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "3.35.1",
+          "publishTimestamp": 1793194457,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "6e1208914483183c0cb15fa887162bf90b0891e5",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.35.0",
+          "publishTimestamp": 1793194303,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "01b558637ea4512d218ae2e8cbf6b216fbd10c9c",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
         {
           "version": "3.34.0",
           "publishTimestamp": 1793163992,
@@ -2967,6 +3045,32 @@
       },
       "versions": [
         {
+          "version": "3.35.1",
+          "publishTimestamp": 1793194457,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "6e1208914483183c0cb15fa887162bf90b0891e5",
+            "path": "apps/unfold-bridge-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.35.0",
+          "publishTimestamp": 1793194303,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "01b558637ea4512d218ae2e8cbf6b216fbd10c9c",
+            "path": "apps/unfold-bridge-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
           "version": "3.34.0",
           "publishTimestamp": 1793163992,
           "source": {
@@ -3120,6 +3224,61 @@
           },
           "engines": {
             "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@automagik/locale-pt-br-dsh",
+      "title": {
+        "en": "Português (Brasil)"
+      },
+      "description": {
+        "en": "Brazilian Portuguese for DSH. Adds Português (Brasil) to Settings › General › Language, and a browser set to Brazilian Portuguese opens DSH in it. Translates what a first session shows: the sidebar, the composer and messages, approvals and questions, the plugin pages and the general settings. Anything it doesn't translate yet stays in English."
+      },
+      "author": "Automagik",
+      "homepage": "https://github.com/automagik-dev/automagik/tree/dev/apps/locale-pt-br-dsh#readme",
+      "repository": {
+        "url": "https://github.com/automagik-dev/automagik",
+        "directory": "apps/locale-pt-br-dsh"
+      },
+      "metadata": {
+        "category": "automagik",
+        "keywords": [
+          "locale",
+          "language",
+          "portuguese",
+          "pt-BR"
+        ],
+        "labels": [
+          "official"
+        ]
+      },
+      "versions": [
+        {
+          "version": "3.35.1",
+          "publishTimestamp": 1793194457,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "6e1208914483183c0cb15fa887162bf90b0891e5",
+            "path": "apps/locale-pt-br-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.35.0",
+          "publishTimestamp": 1793194303,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "01b558637ea4512d218ae2e8cbf6b216fbd10c9c",
+            "path": "apps/locale-pt-br-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.4 <0.2.2-0"
           }
         }
       ]
