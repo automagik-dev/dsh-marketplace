@@ -44,7 +44,7 @@ The Bot team and the welcome moved from Omni's repository to [automagik-dev/auto
 | `@automagik/omni-dsh` (Omni team) | `@automagik/bots-dsh` (Bot team) |
 | `@automagik/omni-ai-dsh` | `@automagik/welcome-dsh` |
 
-Every version listed under the old names stays listed and installs what it always did; new versions come under the new names. To move, install the new one: with both installed the newer one runs (they share the plugin id, `omni-ui` or `omni-ai`), and the team keeps its Bots, chats, memory and Omni link, which live in `~/.omni/ui`. Omni's channels and canvases work with either name. Remove the old one when you like. The Omni desktop app moved too: it is the [Automagik desktop app](https://github.com/automagik-dev/automagik/tree/dev/apps/desktop) now, and an installed one updates into it.
+The retired names are no longer listed in this market; install the replacements above. Removing a market listing does not uninstall an existing package or delete its data. If an old package is still installed, install its replacement before removing it. Omni's channels and canvases retain compatibility with the old Bot team name. Historical entries remain available in this repository's Git history. The Omni desktop app moved too: it is the [Automagik desktop app](https://github.com/automagik-dev/automagik/tree/dev/apps/desktop) now, and an installed one updates into it.
 
 ## Wanted
 
