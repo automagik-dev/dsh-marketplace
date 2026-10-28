@@ -112,6 +112,15 @@ describe('products side by side', () => {
 });
 
 describe('index.json', () => {
+  it('lists the replacements without the retired Omni package names', () => {
+    const index: Index = JSON.parse(readFileSync(INDEX_PATH, 'utf8'));
+    const names = index.plugins.map((plugin) => plugin.name);
+    expect(names).toContain('@automagik/bots-dsh');
+    expect(names).toContain('@automagik/welcome-dsh');
+    expect(names).not.toContain('@automagik/omni-dsh');
+    expect(names).not.toContain('@automagik/omni-ai-dsh');
+  });
+
   it("passes DSH's own parser", () => {
     expect(() => parseMarketIndex(JSON.parse(readFileSync(INDEX_PATH, 'utf8')), INDEX_URL)).not.toThrow();
   });
