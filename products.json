@@ -5,8 +5,8 @@
       "repository": "https://github.com/automagik-dev/omni",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "2.261027.6",
-        "commit": "8f2959d2c6e3cab73d906becfa1e333f3048879b"
+        "version": "2.261027.8",
+        "commit": "d609955869fe83606114e78629a8c31cbe49fbaf"
       }
     },
     {
@@ -14,8 +14,8 @@
       "repository": "https://github.com/automagik-dev/automagik",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "3.32.1",
-        "commit": "39fc1e18928d7ed9cc47799c2dfbfa666b4cf4a6"
+        "version": "3.32.2",
+        "commit": "761949d370aa18fe7f61448648da974d7ff2ab9e"
       },
       "vetted": [
         "https://github.com/automagik-dev/genie",
