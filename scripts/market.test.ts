@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { parseMarketIndex } from '@deepseek-ai/dsh-plugin-market-index';
-import { INDEX_PATH, INDEX_URL, type Index, PRODUCTS_PATH, type Product, followIndex, sourceRepository } from './market';
+import { INDEX_PATH, INDEX_URL, type Index, PRODUCTS_PATH, type Product, droppedPlugins, followIndex, sourceRepository } from './market';
 
 const REPO = 'https://github.com/automagik-dev/omni';
 const git = (commit: string, path = 'apps/omni-ui-dsh') => ({ type: 'git', url: REPO, commit, path });
@@ -105,6 +105,9 @@ describe('products side by side', () => {
     expect(names).not.toContain('@automagik/omni-dsh');
     expect(names).not.toContain('@automagik/omni-ai-dsh');
     expect(names).toEqual(expect.arrayContaining(['dsh-addon', '@automagik/omni-new-dsh', '@automagik/bots-dsh', '@automagik/moved-dsh']));
+    // A drop is reported by name, and nothing else is.
+    expect(droppedPlugins(before, followIndex(before, dropped, release, unchanged))).toEqual(['@automagik/omni-dsh', '@automagik/omni-ai-dsh']);
+    expect(droppedPlugins(before, followIndex(before, template(), release, unchanged))).toEqual(['@automagik/omni-ai-dsh']);
     // Still listed: kept, at every version.
     expect(followIndex(before, template(), release, unchanged).plugins.find((plugin) => plugin.name === '@automagik/omni-dsh')?.versions.map((entry) => entry.version)).toEqual(['2.2', '2.1', '2.0']);
   });
