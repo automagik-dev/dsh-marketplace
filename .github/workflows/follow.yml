@@ -37,7 +37,9 @@ jobs:
       - run: bun install --frozen-lockfile
 
       - name: Follow the products' releases
-        run: bun scripts/market.ts follow
+        run: |
+          set -euo pipefail
+          bun scripts/market.ts follow | tee "${RUNNER_TEMP}/follow.log"
 
       - name: Check and commit
         run: |
@@ -50,5 +52,11 @@ jobs:
           release=$(node -p "require('./products.json').products.map(p => p.id + ' ' + p.release.version).join(', ')")
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -qam "chore(index): list ${release}"
+          dropped=$(sed -n 's/^market: dropped: //p' "${RUNNER_TEMP}/follow.log")
+          if [[ -n "${dropped}" ]]; then
+            count=$(awk -F', ' '{ print NF }' <<< "${dropped}")
+            git commit -qa -m "chore(index): list ${release}; drop ${count} plugins" -m "Dropped, no longer listed by their product: ${dropped}"
+          else
+            git commit -qam "chore(index): list ${release}"
+          fi
           git push -q origin HEAD:main

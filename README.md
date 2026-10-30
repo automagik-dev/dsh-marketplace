@@ -58,7 +58,7 @@ Plugins we want in the Automagik ecosystem, and what each needs before it is lis
 
 Every plugin carries the version its product gave it. Automagik's carry each Automagik release; Omni's carry the Omni release of their last change, so an Omni release lists only the plugins it changed. Each new version is pinned to the commit of the release it first shipped in (a git source with the plugin's folder). A version, once listed, never changes what it installs. `products.json` names each product, where its own index lives in its repository, and the last release listed.
 
-`follow.yml` runs every 30 minutes. For each product that cut a newer release (`v<semver>`, prereleases included) whose own plugins are at that version, it lists them at it, takes the add-ons the product's index lists, checks the result, and commits it. Releases that do not carry their plugins at their version are skipped. A product's index entry from another product's repository is left to that product, and a plugin a release no longer lists keeps every version it has.
+`follow.yml` runs every 30 minutes. For each product that cut a newer release (`v<semver>`, prereleases included) whose own plugins are at that version, it lists them at it, takes the add-ons the product's index lists, checks the result, and commits it. Releases that do not carry their plugins at their version are skipped. A product's index entry from another product's repository is left to that product, and a plugin of the product's own that its release no longer lists is dropped from this market (an installed copy stays installed).
 
 ```sh
 bun install

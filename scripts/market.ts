@@ -79,8 +79,9 @@ export interface Manifest {
  * `changed(path, from, to)` says whether a plugin's folder differs between two commits: a
  * version already listed at another commit must not have changed since. `others` are the
  * other products' repositories: an entry of the template from one of them is that product's
- * to list (it follows its own releases), never this one's. A plugin the template no longer
- * lists keeps every version it has: a listed version never changes or goes.
+ * to list (it follows its own releases), never this one's. A plugin of the product's own (every
+ * version from its repository) that the template no longer lists is dropped: the product stopped
+ * offering it. A listed version never changes what it installs.
  * `manifestOf(path)` is the plugin's package.json at the release commit. Its version is the one
  * listed (the release's when it has none), and its engines.dsh is what DSH admits it on: a new
  * version lists that range, not the one the template's previous entry carried (the template at
@@ -138,8 +139,15 @@ export function followIndex(
     });
     plugin.versions.sort(newestFirst);
   }
+  const offered = new Set(template.plugins.map((plugin) => plugin.name));
+  next.plugins = next.plugins.filter((plugin) => offered.has(plugin.name) || plugin.versions.length === 0
+    || !plugin.versions.every((entry) => isFrom(entry.source, release.repository)));
   return next;
 }
+
+/** The plugins `before` lists and `after` no longer does, by name. */
+export const droppedPlugins = (before: Index, after: Index): string[] =>
+  before.plugins.map((plugin) => plugin.name).filter((name) => !after.plugins.some((plugin) => plugin.name === name));
 
 function git(cwd: string, args: string[]): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 120_000 }).trim();
@@ -235,7 +243,7 @@ async function releasesAfter(product: Product): Promise<string[]> {
     .sort(Bun.semver.order);
 }
 
-/** Moves `index` through every newer release of every product; says what it took and skipped. */
+/** Moves `index` through every newer release of every product; says what it took, skipped and dropped. */
 export async function follow(index: Index, products: Product[], say: (line: string) => void): Promise<Index> {
   let next = index;
   for (const product of products) {
@@ -276,6 +284,7 @@ export async function follow(index: Index, products: Product[], say: (line: stri
         return was?.versions.some((entry) => entry.version === at) ? [] : [`${plugin.name}@${at}`];
       });
       say(`${product.id} ${version}: ${added.length === 0 ? 'no plugin changed' : added.join(', ')} at ${commit.slice(0, 9)}`);
+      for (const name of droppedPlugins(before, next)) say(`${product.id} ${version}: dropped ${name}, no longer listed`);
     }
   }
   return next;
@@ -292,6 +301,9 @@ if (import.meta.main) {
     console.log(`market: ${index.plugins.length} plugins ok`);
   } else if (command === 'follow') {
     const next = await follow(index, file.products, (line) => console.log(`market: ${line}`));
+    // follow.yml names the dropped plugins in its commit.
+    const dropped = droppedPlugins(index, next);
+    if (dropped.length > 0) console.log(`market: dropped: ${dropped.join(', ')}`);
     writeFileSync(INDEX_PATH, `${JSON.stringify(next, null, 2)}\n`);
     writeFileSync(PRODUCTS_PATH, `${JSON.stringify(file, null, 2)}\n`);
   } else {

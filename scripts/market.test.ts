@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { parseMarketIndex } from '@deepseek-ai/dsh-plugin-market-index';
-import { INDEX_PATH, INDEX_URL, type Index, PRODUCTS_PATH, type Product, followIndex, sourceRepository } from './market';
+import { INDEX_PATH, INDEX_URL, type Index, PRODUCTS_PATH, type Product, droppedPlugins, followIndex, sourceRepository } from './market';
 
 const REPO = 'https://github.com/automagik-dev/omni';
 const git = (commit: string, path = 'apps/omni-ui-dsh') => ({ type: 'git', url: REPO, commit, path });
@@ -92,14 +92,24 @@ describe('products side by side', () => {
     expect(followIndex(listed(), omni, release, unchanged, [AUTOMAGIK]).plugins.some((plugin) => plugin.name === '@automagik/bots-dsh')).toBe(false);
   });
 
-  it('keeps every version of a plugin a release no longer lists (a renamed package)', () => {
+  it('drops a plugin of its own that a release no longer lists, and keeps one listed from elsewhere', () => {
     const before = listed();
     before.plugins.push({ name: '@automagik/omni-ai-dsh', versions: [{ ...own('2.1', 'a'.repeat(40)), source: git('a'.repeat(40), 'apps/omni-ai-dsh') }] });
+    // Another product's plugin, and one with a version from another repository: not this release's to drop.
+    const elsewhere = { type: 'git', url: 'https://github.com/automagik-dev/automagik', commit: 'e'.repeat(40), path: 'apps/bots-dsh' };
+    before.plugins.push({ name: '@automagik/bots-dsh', versions: [{ ...own('3.1', 'e'.repeat(40)), source: elsewhere }] });
+    before.plugins.push({ name: '@automagik/moved-dsh', versions: [own('2.1', 'a'.repeat(40)), { ...own('1.0', 'e'.repeat(40)), source: elsewhere }] });
     const dropped = template();
     dropped.plugins = dropped.plugins.filter((plugin) => plugin.name !== '@automagik/omni-dsh');
-    const next = followIndex(before, dropped, release, unchanged);
-    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-dsh')).toEqual(listed().plugins[0]);
-    expect(next.plugins.find((plugin) => plugin.name === '@automagik/omni-ai-dsh')?.versions.map((entry) => entry.version)).toEqual(['2.1']);
+    const names = followIndex(before, dropped, release, unchanged).plugins.map((plugin) => plugin.name);
+    expect(names).not.toContain('@automagik/omni-dsh');
+    expect(names).not.toContain('@automagik/omni-ai-dsh');
+    expect(names).toEqual(expect.arrayContaining(['dsh-addon', '@automagik/omni-new-dsh', '@automagik/bots-dsh', '@automagik/moved-dsh']));
+    // A drop is reported by name, and nothing else is.
+    expect(droppedPlugins(before, followIndex(before, dropped, release, unchanged))).toEqual(['@automagik/omni-dsh', '@automagik/omni-ai-dsh']);
+    expect(droppedPlugins(before, followIndex(before, template(), release, unchanged))).toEqual(['@automagik/omni-ai-dsh']);
+    // Still listed: kept, at every version.
+    expect(followIndex(before, template(), release, unchanged).plugins.find((plugin) => plugin.name === '@automagik/omni-dsh')?.versions.map((entry) => entry.version)).toEqual(['2.2', '2.1', '2.0']);
   });
 
   it("takes git sources from the products' repositories and the forks they vetted, and nothing else", () => {
@@ -119,6 +129,11 @@ describe('index.json', () => {
     expect(names).toContain('@automagik/welcome-dsh');
     expect(names).not.toContain('@automagik/omni-dsh');
     expect(names).not.toContain('@automagik/omni-ai-dsh');
+  });
+
+  it("lists none of Unfold's plugins: they come with Unfold's own instance", () => {
+    const index: Index = JSON.parse(readFileSync(INDEX_PATH, 'utf8'));
+    expect(index.plugins.filter((plugin) => plugin.name.startsWith('@automagik/unfold-')).map((plugin) => plugin.name)).toEqual([]);
   });
 
   it("passes DSH's own parser", () => {
