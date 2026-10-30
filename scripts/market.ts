@@ -79,8 +79,9 @@ export interface Manifest {
  * `changed(path, from, to)` says whether a plugin's folder differs between two commits: a
  * version already listed at another commit must not have changed since. `others` are the
  * other products' repositories: an entry of the template from one of them is that product's
- * to list (it follows its own releases), never this one's. A plugin the template no longer
- * lists keeps every version it has: a listed version never changes or goes.
+ * to list (it follows its own releases), never this one's. A plugin of the product's own (every
+ * version from its repository) that the template no longer lists is dropped: the product stopped
+ * offering it. A listed version never changes what it installs.
  * `manifestOf(path)` is the plugin's package.json at the release commit. Its version is the one
  * listed (the release's when it has none), and its engines.dsh is what DSH admits it on: a new
  * version lists that range, not the one the template's previous entry carried (the template at
@@ -138,6 +139,9 @@ export function followIndex(
     });
     plugin.versions.sort(newestFirst);
   }
+  const offered = new Set(template.plugins.map((plugin) => plugin.name));
+  next.plugins = next.plugins.filter((plugin) => offered.has(plugin.name) || plugin.versions.length === 0
+    || !plugin.versions.every((entry) => isFrom(entry.source, release.repository)));
   return next;
 }
 
