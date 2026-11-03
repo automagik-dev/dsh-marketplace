@@ -76,6 +76,19 @@
       },
       "versions": [
         {
+          "version": "2.261103.28",
+          "publishTimestamp": 1793693768,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/omni",
+            "commit": "8bbc1e347470f6d5cbbe7cdda9732fb0c577eb18",
+            "path": "apps/omni-channels-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.2.2-0"
+          }
+        },
+        {
           "version": "2.261102.53",
           "publishTimestamp": 1793658689,
           "source": {
@@ -1919,6 +1932,32 @@
       },
       "versions": [
         {
+          "version": "3.58.1",
+          "publishTimestamp": 1793716545,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "7fdc8ad7e4ba328382e338e18e4f23c2589803cc",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.58.0",
+          "publishTimestamp": 1793712341,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "e285b93d1f82bd9d676ad86d36ab3a98dc744b89",
+            "path": "apps/bots-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
           "version": "3.57.0",
           "publishTimestamp": 1793681629,
           "source": {
@@ -3064,6 +3103,32 @@
         ]
       },
       "versions": [
+        {
+          "version": "3.58.1",
+          "publishTimestamp": 1793716545,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "7fdc8ad7e4ba328382e338e18e4f23c2589803cc",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.58.0",
+          "publishTimestamp": 1793712341,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "e285b93d1f82bd9d676ad86d36ab3a98dc744b89",
+            "path": "apps/welcome-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
         {
           "version": "3.57.0",
           "publishTimestamp": 1793681629,
@@ -4280,6 +4345,32 @@
       },
       "versions": [
         {
+          "version": "3.58.1",
+          "publishTimestamp": 1793716545,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "7fdc8ad7e4ba328382e338e18e4f23c2589803cc",
+            "path": "apps/locale-pt-br-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.58.0",
+          "publishTimestamp": 1793712341,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "e285b93d1f82bd9d676ad86d36ab3a98dc744b89",
+            "path": "apps/locale-pt-br-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
           "version": "3.57.0",
           "publishTimestamp": 1793681629,
           "source": {
@@ -4784,6 +4875,60 @@
           },
           "engines": {
             "dsh": ">=0.2.1-rc.4 <0.2.2-0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@automagik/acp-dsh",
+      "title": {
+        "en": "ACP agents"
+      },
+      "description": {
+        "en": "Agents other than DSH's own as DSH models, over the Agent Client Protocol. A chat on one keeps DSH's history and sidebar; the agent's tool calls show as DSH tool cards and ask through DSH's approval dialog."
+      },
+      "author": "Automagik",
+      "homepage": "https://github.com/automagik-dev/automagik/tree/dev/apps/acp-dsh#readme",
+      "repository": {
+        "url": "https://github.com/automagik-dev/automagik",
+        "directory": "apps/acp-dsh"
+      },
+      "metadata": {
+        "category": "automagik",
+        "keywords": [
+          "acp",
+          "agent-client-protocol",
+          "agents"
+        ],
+        "labels": [
+          "official"
+        ]
+      },
+      "versions": [
+        {
+          "version": "3.58.1",
+          "publishTimestamp": 1793716545,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "7fdc8ad7e4ba328382e338e18e4f23c2589803cc",
+            "path": "apps/acp-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+          }
+        },
+        {
+          "version": "3.58.0",
+          "publishTimestamp": 1793712341,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/automagik-dev/automagik",
+            "commit": "e285b93d1f82bd9d676ad86d36ab3a98dc744b89",
+            "path": "apps/acp-dsh"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.2.2-0"
           }
         }
       ]
