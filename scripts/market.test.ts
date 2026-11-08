@@ -116,7 +116,7 @@ describe('products side by side', () => {
     const products: Product[] = JSON.parse(readFileSync(PRODUCTS_PATH, 'utf8')).products;
     expect(products.map((product) => product.id)).toEqual(['omni', 'automagik']);
     expect(sourceRepository('https://github.com/automagik-dev/automagik.git', products)).toBe(AUTOMAGIK);
-    expect(sourceRepository('https://github.com/automagik-genie/dsh-oh-my-claude', products)).toBe('https://github.com/automagik-genie/dsh-oh-my-claude');
+    expect(sourceRepository('https://github.com/automagik-genie/dsh-oh-my-claude', products)).toBeNull();
     expect(sourceRepository('https://github.com/someone/dsh-oh-my-claude', products)).toBeNull();
   });
 });

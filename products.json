@@ -19,7 +19,6 @@
       },
       "vetted": [
         "https://github.com/automagik-dev/genie",
-        "https://github.com/automagik-genie/dsh-oh-my-claude",
         "https://github.com/automagik-genie/dsh-subscriptions"
       ]
     }
