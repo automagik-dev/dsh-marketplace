@@ -14,8 +14,8 @@
       "repository": "https://github.com/automagik-dev/automagik",
       "index": "marketplace/automagik.json",
       "release": {
-        "version": "3.108.19",
-        "commit": "6bd7ad4ae827fed637d341156ff4d54f29e50463"
+        "version": "3.113.2",
+        "commit": "af1544f0e051e08f2e2398a3ffca3b703eeb218b"
       },
       "vetted": [
         "https://github.com/automagik-dev/genie",
